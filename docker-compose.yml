@@ -1,0 +1,26 @@
+services:
+  backend:
+    build: ./backend
+    container_name: smart-market-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - market_uploads:/app/uploads # Sahi array format with dash (-)
+
+  frontend:
+    build: ./frontend
+    container_name: smart-market-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80" # production build ke liye Nginx port 80 use hota hai
+    depends_on:
+      - backend
+    # Agar aapne frontend me koi volume lagaya hai, toh uska format aisa hona chahiye:
+    # volumes:
+    #   - ./frontend:/app 
+
+volumes:
+  market_uploads:
