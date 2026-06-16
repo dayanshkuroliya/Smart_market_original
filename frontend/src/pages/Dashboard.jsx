@@ -22,15 +22,14 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Top stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <StatCard label="Total Vendors"     value={data.total_vendors}           color="blue" />
-        <StatCard label="Collected Today"   value={fmt(data.total_collected_today)}  color="green" />
-        <StatCard label="Paid Today"        value={data.paid_today}              color="green" />
-        <StatCard label="Pending Today"     value={data.pending_today}           color="yellow" />
-        <StatCard label="Not Paid Today"    value={data.not_paid_today}          color="red" />
-        <StatCard label="Total Due"         value={fmt(data.total_due_amount)}   color="red"
-          sub={`${data.total_vendors_with_pending} vendors`} />
-      </div>
+    <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+      <StatCard label="Total Vendors"     value={data.total_vendors} />
+      <StatCard label="Collected Today"   value={fmt(data.total_collected_today)} />
+      <StatCard label="Paid Today"        value={data.paid_today} />
+      <StatCard label="Pending Today"     value={data.pending_today} />
+      <StatCard label="Not Paid Today"    value={data.not_paid_today} />
+      <StatCard label="Total Due"         value={fmt(data.total_due_amount)} sub={`${data.total_vendors_with_pending} vendors`} />
+    </div>
 
       {/* Quick action cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
