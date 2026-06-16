@@ -101,10 +101,10 @@ export default function Analytics() {
       {/* Export buttons */}
       <div className="flex justify-end gap-3">
         <button onClick={exportCSV} className="btn-secondary flex items-center gap-2 text-sm">
-          📄 Export CSV
+           Export CSV
         </button>
         <button onClick={exportExcel} className="btn-primary flex items-center gap-2 text-sm">
-          📊 Export Excel
+           Export Excel
         </button>
       </div>
 

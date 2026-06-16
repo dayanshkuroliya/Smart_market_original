@@ -23,19 +23,19 @@ export default function Dashboard() {
     <div className="space-y-6">
       {/* Top stats */}
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <StatCard label="Total Vendors"     value={data.total_vendors}          icon="🏪" color="blue" />
-        <StatCard label="Collected Today"   value={fmt(data.total_collected_today)} icon="💵" color="green" />
-        <StatCard label="Paid Today"        value={data.paid_today}             icon="✅" color="green" />
-        <StatCard label="Pending Today"     value={data.pending_today}          icon="⏳" color="yellow" />
-        <StatCard label="Not Paid Today"    value={data.not_paid_today}         icon="❌" color="red" />
-        <StatCard label="Total Due"         value={fmt(data.total_due_amount)}  icon="💸" color="red"
+        <StatCard label="Total Vendors"     value={data.total_vendors}           color="blue" />
+        <StatCard label="Collected Today"   value={fmt(data.total_collected_today)}  color="green" />
+        <StatCard label="Paid Today"        value={data.paid_today}              color="green" />
+        <StatCard label="Pending Today"     value={data.pending_today}           color="yellow" />
+        <StatCard label="Not Paid Today"    value={data.not_paid_today}          color="red" />
+        <StatCard label="Total Due"         value={fmt(data.total_due_amount)}   color="red"
           sub={`${data.total_vendors_with_pending} vendors`} />
       </div>
 
       {/* Quick action cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Link to="/collection" className="card p-5 flex items-center gap-4 hover:shadow-md cursor-pointer group">
-          <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">💰</div>
+          <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"></div>
           <div>
             <p className="font-semibold text-gray-900 dark:text-white">Record Collection</p>
             <p className="text-xs text-gray-500">Mark today's payments</p>

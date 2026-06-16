@@ -60,7 +60,7 @@ export default function VendorList() {
 
       {loading ? <Spinner /> : vendors.length === 0 ? (
         <div className="card p-12 text-center">
-          <p className="text-4xl mb-3">🏪</p>
+          <p className="text-4xl mb-3"></p>
           <p className="text-gray-500 dark:text-gray-400">No vendors found</p>
           <Link to="/vendors/add" className="btn-primary mt-4 inline-block">Add first vendor</Link>
         </div>
@@ -91,11 +91,11 @@ export default function VendorList() {
                         <button
                           onClick={() => navigate(`/vendors/edit/${v.id}`)}
                           className="text-xs btn-secondary px-3 py-1"
-                        >✏️ Edit</button>
+                        > Edit</button>
                         <button
                           onClick={() => navigate(`/history?vendor=${v.id}`)}
                           className="text-xs bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-lg font-medium"
-                        >📋 History</button>
+                        > History</button>
                         <button
                           disabled={deleting === v.id}
                           onClick={() => handleDelete(v.id, v.owner_name)}

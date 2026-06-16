@@ -91,10 +91,10 @@ export default function DailyCollection() {
         </div>
         <div className="flex-1" />
         <div className="flex gap-4 text-sm flex-wrap">
-          <span className="text-green-600 dark:text-green-400 font-semibold">✅ Paid: {summary.paid}</span>
-          <span className="text-yellow-600 dark:text-yellow-400 font-semibold">⏳ Pending amt: ₹{summary.pending.toLocaleString('en-IN')}</span>
-          <span className="text-red-500 font-semibold">❌ Not Paid: {summary.notPaid}</span>
-          <span className="text-blue-600 dark:text-blue-400 font-bold">💰 Collected: ₹{summary.collected.toLocaleString('en-IN')}</span>
+          <span className="text-green-600 dark:text-green-400 font-semibold"> Paid: {summary.paid}</span>
+          <span className="text-yellow-600 dark:text-yellow-400 font-semibold"> Pending amt: ₹{summary.pending.toLocaleString('en-IN')}</span>
+          <span className="text-red-500 font-semibold"> Not Paid: {summary.notPaid}</span>
+          <span className="text-blue-600 dark:text-blue-400 font-bold"> Collected: ₹{summary.collected.toLocaleString('en-IN')}</span>
         </div>
       </div>
 

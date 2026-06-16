@@ -54,7 +54,7 @@ export default function PendingPayments() {
 
       {loading ? <Spinner /> : records.length === 0 ? (
         <div className="card p-12 text-center">
-          <p className="text-5xl mb-3">🎉</p>
+          <p className="text-5xl mb-3"></p>
           <p className="font-semibold text-gray-700 dark:text-gray-200">All payments are clear!</p>
           <p className="text-sm text-gray-400 mt-1">No pending or unpaid collections found.</p>
         </div>

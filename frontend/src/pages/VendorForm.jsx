@@ -54,7 +54,7 @@ export default function VendorForm() {
     <div className="max-w-xl mx-auto">
       <div className="card p-6">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
-          {isEdit ? '✏️ Edit Vendor' : '➕ Add New Vendor'}
+          {isEdit ? ' Edit Vendor' : ' Add New Vendor'}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

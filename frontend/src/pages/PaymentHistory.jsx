@@ -82,7 +82,7 @@ export default function PaymentHistory() {
 
       {!selectedVendor ? (
         <div className="card p-12 text-center text-gray-400">
-          <p className="text-3xl mb-2">📋</p>
+          <p className="text-3xl mb-2"></p>
           <p>Select a vendor to view their payment history</p>
         </div>
       ) : loading ? <Spinner /> : history.length === 0 ? (
