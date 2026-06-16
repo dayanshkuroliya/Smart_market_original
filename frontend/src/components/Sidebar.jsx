@@ -4,12 +4,12 @@ import { useAuth } from '../utils/AuthContext'
 import { useDarkMode } from '../hooks/useDarkMode'
 
 const nav = [
-  { to: '/',            label: 'Dashboard',        icon: '📊' },
-  { to: '/vendors',     label: 'Vendors',           icon: '🏪' },
-  { to: '/collection',  label: 'Daily Collection',  icon: '💰' },
-  { to: '/pending',     label: 'Pending Payments',  icon: '⏳' },
-  { to: '/history',     label: 'Payment History',   icon: '📋' },
-  { to: '/analytics',   label: 'Analytics',         icon: '📈' },
+  { to: '/',            label: 'Dashboard' },
+  { to: '/vendors',     label: 'Vendors'},
+  { to: '/collection',  label: 'Daily Collection' },
+  { to: '/pending',     label: 'Pending Payments'},
+  { to: '/history',     label: 'Payment History'},
+  { to: '/analytics',   label: 'Analytics' },
 ]
 
 export default function Sidebar({ open, onClose }) {
@@ -73,7 +73,7 @@ export default function Sidebar({ open, onClose }) {
             onClick={() => setDark(!dark)}
             className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
           >
-            <span>{dark ? '☀️' : '🌙'}</span>
+            {/* <span>{dark ? '☀️' : '🌙'}</span> */}
             {dark ? 'Light Mode' : 'Dark Mode'}
           </button>
 
