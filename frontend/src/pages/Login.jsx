@@ -31,6 +31,7 @@ export default function Login() {
           <div className="inline-flex w-16 h-16 rounded-2xl bg-blue-600 items-center justify-center text-3xl mb-4 shadow-lg">🏬</div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Smart Market</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">Charge Collection Manager</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Developed by Dayansh Kuroliya</p>
         </div>
 
         {/* Card */}
