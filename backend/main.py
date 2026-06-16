@@ -22,9 +22,14 @@ app = FastAPI(
 )
 
 # CORS — allow React dev server
+# CORS — allow React dev server and live Vercel frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://smart-market-original.vercel.app"  # <-- Aapka live Vercel frontend URL yahan add ho gaya
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
