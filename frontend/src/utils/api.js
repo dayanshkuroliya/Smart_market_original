@@ -2,7 +2,8 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/api',
+  // Hardcode kar rahe hain taaki koi env variable ka jhanjhat na rahe
+  baseURL: 'https://smart-market-original.onrender.com/api',
   headers: { 'Content-Type': 'application/json' },
 })
 
