@@ -8,7 +8,7 @@ from database import Base
 class PaymentStatus(str, enum.Enum):
     PAID = "Paid"
     PENDING = "Pending"
-    NOT_PAID = "Not Paid"
+    ABSENT = "Absent"
 
 class DailyCollection(Base):
     __tablename__ = "daily_collections"

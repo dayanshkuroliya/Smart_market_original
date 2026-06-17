@@ -7,7 +7,7 @@ class CollectionBase(BaseModel):
     vendor_id: int
     collection_date: date
     amount: float = Field(..., ge=0)
-    status: Literal["Paid", "Pending", "Not Paid"]
+    status: Literal["Paid", "Pending", "Absent"]
     notes: Optional[str] = None
 
 class CollectionCreate(CollectionBase):
@@ -15,7 +15,7 @@ class CollectionCreate(CollectionBase):
 
 class CollectionUpdate(BaseModel):
     amount: Optional[float] = Field(None, ge=0)
-    status: Optional[Literal["Paid", "Pending", "Not Paid"]] = None
+    status: Optional[Literal["Paid", "Pending", "Absent"]] = None
     notes: Optional[str] = None
 
 class CollectionResponse(CollectionBase):

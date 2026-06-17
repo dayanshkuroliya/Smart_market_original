@@ -20,29 +20,31 @@ def get_dashboard_summary(db: Session) -> DashboardSummary:
 
     paid_today = sum(1 for r in today_records if r.status == "Paid")
     pending_today = sum(1 for r in today_records if r.status == "Pending")
-    not_paid_today = sum(1 for r in today_records if r.status == "Not Paid")
+    # 1. "Not Paid" ko hata kar "Absent" logic check kiya
+    absent_today = sum(1 for r in today_records if r.status == "Absent") 
     total_collected_today = sum(r.amount for r in today_records if r.status == "Paid")
 
-    # Total outstanding due amount (all time, pending/not paid)
+    # 2. Total outstanding due amount me se "Not Paid" hataya, ab sirf "Pending" count hoga
     total_due = db.query(func.sum(DailyCollection.amount)).filter(
-        DailyCollection.status.in_(["Pending", "Not Paid"])
+        DailyCollection.status == "Pending"
     ).scalar() or 0.0
 
-    # Unique vendors with pending/unpaid
+    # 3. Unique vendors filter me bhi sirf "Pending" rakha
     vendors_with_pending = db.query(func.count(func.distinct(DailyCollection.vendor_id))).filter(
-        DailyCollection.status.in_(["Pending", "Not Paid"])
+        DailyCollection.status == "Pending"
     ).scalar() or 0
 
     # 30-day trend
     trend_data = get_collection_trend(db, days=30)
     trend = [DailyTrend(**t) for t in trend_data]
 
+    # 4. Final response returned with new Pydantic keys
     return DashboardSummary(
         total_vendors=total_vendors,
         total_collected_today=total_collected_today,
         paid_today=paid_today,
         pending_today=pending_today,
-        not_paid_today=not_paid_today,
+        absent_today=absent_today, # <-- Updated key name
         total_due_amount=float(total_due),
         total_vendors_with_pending=vendors_with_pending,
         collection_trend=trend,

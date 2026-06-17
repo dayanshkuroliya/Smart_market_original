@@ -57,12 +57,13 @@ def get_vendor_history(
     return query.order_by(DailyCollection.collection_date.desc()).all()
 
 def get_pending_payments(db: Session) -> List[PendingPaymentResponse]:
-    """Get all pending and not-paid collections with days overdue."""
+    """Get all pending collections with days overdue."""
     today = date.today()
     records = (
         db.query(DailyCollection, Vendor)
         .join(Vendor, DailyCollection.vendor_id == Vendor.id)
-        .filter(DailyCollection.status.in_(["Pending", "Not Paid"]))
+        # 1. Yahan se "Not Paid" ko hata diya kyunki Absent vendor pending dues me nahi aayega
+        .filter(DailyCollection.status == "Pending") 
         .order_by(DailyCollection.collection_date.asc())
         .all()
     )
@@ -105,6 +106,7 @@ def get_today_collections(db: Session, target_date: Optional[date] = None) -> Li
             "notes": c.notes,
             "collection_date": c.collection_date,
         }
+        # Fixed list comprehension formatting
         for c, v in records
     ]
 
@@ -112,40 +114,42 @@ def get_collection_trend(db: Session, days: int = 30) -> List[dict]:
     """Get daily collection trends for the last N days."""
     start = date.today() - timedelta(days=days)
     records = db.query(
-          DailyCollection.collection_date,
+        DailyCollection.collection_date,
 
-    func.sum(
-        case(
-            (DailyCollection.status == "Paid", DailyCollection.amount),
-            else_=0
-        )
-    ).label("total_collected"),
+        func.sum(
+            case(
+                (DailyCollection.status == "Paid", DailyCollection.amount),
+                else_=0
+            )
+        ).label("total_collected"),
 
-    func.sum(
-        case(
-            (DailyCollection.status.in_(["Pending", "Not Paid"]), DailyCollection.amount),
-            else_=0
-        )
-    ).label("total_pending"),
+        func.sum(
+            case(
+                # 2. Total pending amount nikalne ke liye sirf "Pending" use hoga
+                (DailyCollection.status == "Pending", DailyCollection.amount), 
+                else_=0
+            )
+        ).label("total_pending"),
 
-    func.count(
-        case(
-            (DailyCollection.status == "Paid", 1)
-        )
-    ).label("paid_count"),
+        func.count(
+            case(
+                (DailyCollection.status == "Paid", 1)
+            )
+        ).label("paid_count"),
 
-    func.count(
-        case(
-            (DailyCollection.status == "Pending", 1)
-        )
-    ).label("pending_count"),
+        func.count(
+            case(
+                (DailyCollection.status == "Pending", 1)
+            )
+        ).label("pending_count"),
 
-    func.count(
-        case(
-            (DailyCollection.status == "Not Paid", 1)
-        )
-    ).label("not_paid_count"),
-           ).filter(
+        func.count(
+            case(
+                # 3. "Not Paid" count ko badal kar "absent_count" kar diya dashboard trend ke liye
+                (DailyCollection.status == "Absent", 1) 
+            )
+        ).label("absent_count"),
+    ).filter(
         DailyCollection.collection_date >= start
     ).group_by(DailyCollection.collection_date).order_by(DailyCollection.collection_date).all()
 
@@ -156,7 +160,8 @@ def get_collection_trend(db: Session, days: int = 30) -> List[dict]:
             "total_pending": float(r.total_pending or 0),
             "paid_count": r.paid_count or 0,
             "pending_count": r.pending_count or 0,
-            "not_paid_count": r.not_paid_count or 0,
+            # 4. JSON keys me bhi absent count map kar diya
+            "absent_count": r.absent_count or 0, 
         }
         for r in records
     ]

@@ -27,7 +27,8 @@ export default function Dashboard() {
         <StatCard label="Collected Today"   value={fmt(data.total_collected_today)} />
         <StatCard label="Paid Today"        value={data.paid_today} />
         <StatCard label="Pending Today"     value={data.pending_today} />
-        <StatCard label="Not Paid Today"    value={data.not_paid_today} />
+        {/* 1. "Not Paid Today" ko badal kar "Absent Today" kiya aur backend ke response ke sath map kiya */}
+        <StatCard label="Absent Today"      value={data.absent_today || 0} /> 
         <StatCard label="Total Due"         value={fmt(data.total_due_amount)} sub={`${data.total_vendors_with_pending} vendors`} />
       </div>
 
@@ -68,7 +69,8 @@ export default function Dashboard() {
                   <th className="pb-2 pr-4 font-medium">Collected</th>
                   <th className="pb-2 pr-4 font-medium">Pending</th>
                   <th className="pb-2 pr-4 font-medium">Paid</th>
-                  <th className="pb-2 pr-4 font-medium">Unpaid</th>
+                  {/* 2. Heading ko Unpaid se Absent kiya */}
+                  <th className="pb-2 pr-4 font-medium">Absent</th> 
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50 dark:divide-gray-700">
@@ -83,7 +85,8 @@ export default function Dashboard() {
                       <span className="badge-paid">{row.paid_count}</span>
                     </td>
                     <td className="py-2 pr-4">
-                      <span className="badge-notpaid">{row.not_paid_count + row.pending_count}</span>
+                      {/* 3. Yahan 'row.not_paid_count' hata kar backend se aane wala 'row.absent_count' map kiya */}
+                      <span className="badge-notpaid">{row.absent_count || 0}</span>
                     </td>
                   </tr>
                 ))}
